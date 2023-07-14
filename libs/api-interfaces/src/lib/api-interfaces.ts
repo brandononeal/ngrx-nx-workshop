@@ -1,7 +1,7 @@
 export enum Category {
   BOOKS = 'Books',
   ELECTRONICS = 'Electronics',
-  FURNITURE = 'Furniture'
+  FURNITURE = 'Furniture',
 }
 
 export type Rating = 1 | 2 | 3 | 4 | 5;
@@ -16,7 +16,7 @@ export interface BasicProduct {
 }
 
 export interface Product extends BasicProduct {
-  description: string;
+  description?: string;
 }
 
 export interface CartItem {
