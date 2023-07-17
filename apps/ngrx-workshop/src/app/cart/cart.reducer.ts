@@ -1,5 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
-import * as productDetailsActions from '../product/product-details/actions';
+import * as productDetailsActions from '../product/product-details/product-details.actions';
+import * as cartActions from './cart.actions';
 
 export const CART_FEATURE_KEY = 'cart';
 
@@ -24,5 +25,15 @@ export const cartReducer = createReducer(
         [productId]: newQuantity,
       },
     };
-  })
+  }),
+  on(cartActions.fetchCartItemsSuccess, (state, { cartItems }) => ({
+    ...state,
+    cartItems: cartItems.reduce(
+      (acc: { [productId: string]: number }, { productId, quantity }) => {
+        acc[productId] = quantity;
+        return acc;
+      },
+      {}
+    ),
+  }))
 );

@@ -3,10 +3,10 @@ import { map, Observable, shareReplay } from 'rxjs';
 import { BasicProduct, Rating } from '@ngrx-nx-workshop/api-interfaces';
 import { RatingService } from '../rating.service';
 import { Store } from '@ngrx/store';
-import { productsOpened } from './actions';
-import { GlobalState } from '../reducer';
+import { productsOpened } from './product-list.actions';
+import { GlobalState } from '../product.reducer';
 
-import * as selectors from '../selectors';
+import * as selectors from '../product.selectors';
 
 @Component({
   selector: 'ngrx-nx-workshop-home',

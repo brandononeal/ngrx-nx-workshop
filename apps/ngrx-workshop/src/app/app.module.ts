@@ -7,11 +7,12 @@ import { CartIconModule } from './cart/cart-icon/cart-icon.module';
 import { RoutingModule } from './router/routing.module';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { productsReducer } from './product/reducer';
+import { productsReducer } from './product/product.reducer';
 import { EffectsModule } from '@ngrx/effects';
-import { ProductEffects } from './product/effects';
+import { ProductEffects } from './product/product.effects';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { CartModule } from './cart/cart.module';
+import { ErrorEffects } from './error.effects';
 
 @NgModule({
   declarations: [AppComponent],
@@ -23,7 +24,7 @@ import { CartModule } from './cart/cart.module';
     CartModule,
     MatToolbarModule,
     MatSnackBarModule,
-    EffectsModule.forRoot([ProductEffects]),
+    EffectsModule.forRoot([ProductEffects, ErrorEffects]),
     StoreModule.forRoot({ product: productsReducer }),
     StoreDevtoolsModule.instrument({ maxAge: 50 }),
   ],

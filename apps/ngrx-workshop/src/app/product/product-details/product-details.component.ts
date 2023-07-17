@@ -16,7 +16,7 @@ import {
   take,
 } from 'rxjs';
 
-import * as actions from './actions';
+import * as actions from './product-details.actions';
 
 @Component({
   selector: 'ngrx-nx-workshop-product-details',

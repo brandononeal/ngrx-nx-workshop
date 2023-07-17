@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 
-import * as selectors from '../selectors';
+import * as selectors from '../cart.selectors';
 
 @Component({
   selector: 'ngrx-nx-workshop-cart',

@@ -7,5 +7,6 @@ export const productsFetchedSuccess = createAction(
 );
 
 export const productsFetchedError = createAction(
-  '[Product API] Products fetched error'
+  '[Product API] Products fetched error',
+  props<{ errorMessage: string }>()
 );

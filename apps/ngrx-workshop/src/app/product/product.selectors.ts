@@ -1,4 +1,4 @@
-import { GlobalState } from './reducer';
+import { GlobalState } from './product.reducer';
 
 /**
  * Selector for products data
