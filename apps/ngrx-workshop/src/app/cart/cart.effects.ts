@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, defer, map, of, switchMap, timer } from 'rxjs';
+import { catchError, defer, map, mergeMap, of, switchMap, timer } from 'rxjs';
 import { CartService } from './cart.service';
 
 import * as actions from './cart.actions';
 import * as cartDetailsActions from './cart-details/cart-details.actions';
+import * as productDetailsActions from '../product/product-details/product-details.actions';
 
 const REFRESH_CART_ITEMS_INTERVAL_MS = 20_000;
 
@@ -24,6 +25,25 @@ export class CartEffects {
             of(
               actions.fetchCartItemsError({
                 errorMessage: 'Fetching cart items failed',
+              })
+            )
+          )
+        )
+      )
+    );
+  });
+
+  readonly addProductToCart = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(productDetailsActions.addToCart),
+      mergeMap(({ productId }) =>
+        this.cartService.addProduct(productId).pipe(
+          map(() => actions.addToCartSuccess()),
+          catchError(() =>
+            of(
+              actions.addToCartError({
+                productId,
+                errorMessage: 'Adding to cart failed',
               })
             )
           )

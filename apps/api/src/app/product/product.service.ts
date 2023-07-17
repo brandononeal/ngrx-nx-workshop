@@ -17,7 +17,7 @@ function stripDescription(originalData: Product[]): BasicProduct[] {
 export class ProductService {
   getProductList(): BasicProduct[] {
     if (Math.random() < 0.25) {
-      throw new HttpException('products failed', HttpStatus.FORBIDDEN);
+      throw new HttpException('Products failed', HttpStatus.FORBIDDEN);
     }
     return stripDescription(data);
   }
