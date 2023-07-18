@@ -7,13 +7,17 @@ import { Store } from '@ngrx/store';
 import * as apiActions from './product.actions';
 import * as productListActions from './product-list/product-list.actions';
 import * as productDetailsActions from './product-details/product-details.actions';
+import * as cartDetailsActions from '../cart/cart-details/cart-details.actions';
 import * as selectors from './product.selectors';
 
 @Injectable()
 export class ProductEffects {
   readonly fetchProducts$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(productListActions.productsOpened),
+      ofType(
+        productListActions.productsOpened,
+        cartDetailsActions.cartDetailsOpened
+      ),
       exhaustMap(() =>
         this.productService.getProducts().pipe(
           map((products) => apiActions.productsFetchedSuccess({ products })),
