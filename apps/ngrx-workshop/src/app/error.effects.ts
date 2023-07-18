@@ -13,6 +13,7 @@ export class ErrorEffects {
       return this.actions$.pipe(
         ofType(
           productApiActions.productsFetchedError,
+          productApiActions.productFetchedError,
           cartApiActions.fetchCartItemsError,
           cartApiActions.addToCartError
         ),

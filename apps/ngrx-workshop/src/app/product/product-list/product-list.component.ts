@@ -4,7 +4,6 @@ import { BasicProduct, Rating } from '@ngrx-nx-workshop/api-interfaces';
 import { RatingService } from '../rating.service';
 import { Store } from '@ngrx/store';
 import { productsOpened } from './product-list.actions';
-import { GlobalState } from '../product.reducer';
 
 import * as selectors from '../product.selectors';
 
@@ -20,7 +19,7 @@ export class ProductListComponent implements OnInit {
   customerRatings$?: Observable<{ [productId: string]: Rating }>;
 
   constructor(
-    private readonly store: Store<GlobalState>,
+    private readonly store: Store,
     private readonly ratingService: RatingService
   ) {
     this.store.dispatch(productsOpened());

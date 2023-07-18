@@ -1,4 +1,4 @@
-import { BasicProduct } from '@ngrx-nx-workshop/api-interfaces';
+import { BasicProduct, Product } from '@ngrx-nx-workshop/api-interfaces';
 import { createAction, props } from '@ngrx/store';
 
 export const productsFetchedSuccess = createAction(
@@ -8,5 +8,15 @@ export const productsFetchedSuccess = createAction(
 
 export const productsFetchedError = createAction(
   '[Product API] Products fetched error',
+  props<{ errorMessage: string }>()
+);
+
+export const productFetchedSuccess = createAction(
+  '[Product API] Product fetched success',
+  props<{ product: Product }>()
+);
+
+export const productFetchedError = createAction(
+  '[Product API] Product fetched error',
   props<{ errorMessage: string }>()
 );
