@@ -1,33 +1,34 @@
 import { Product } from '@ngrx-nx-workshop/api-interfaces';
 import { createReducer, on } from '@ngrx/store';
+import { EntityAdapter, EntityState, createEntityAdapter } from '@ngrx/entity';
 
 import * as apiActions from './product.actions';
 
 export interface ProductState {
-  products?: Product[];
+  products: EntityState<Product>;
 }
 
+export const productAdapter: EntityAdapter<Product> = createEntityAdapter({
+  selectId: (product: Product) => product.id,
+});
+
 const initState: ProductState = {
-  products: undefined,
+  products: productAdapter.getInitialState(),
 };
 
 export const productsReducer = createReducer(
   initState,
-  on(apiActions.productsFetchedSuccess, (state, { products }) => ({
+  on(apiActions.productsFetchedSuccess, (state, action) => ({
     ...state,
-    products: [...products],
+    products: productAdapter.upsertMany(action.products, state.products),
   })),
   on(apiActions.productsFetchedError, (state) => ({
     ...state,
-    products: [],
   })),
   on(apiActions.productFetchedSuccess, (state, { product }) => {
-    const productsClone = state.products ? [...state.products] : [];
-    const indexOfProduct = productsClone.findIndex((p) => p.id === product.id);
-    productsClone.splice(indexOfProduct, 1, product);
     return {
       ...state,
-      products: productsClone,
+      products: productAdapter.upsertOne(product, state.products),
     };
   })
 );

@@ -13,7 +13,7 @@ import * as selectors from '../product.selectors';
   styleUrls: ['./product-list.component.scss'],
 })
 export class ProductListComponent implements OnInit {
-  products$?: Observable<BasicProduct[] | undefined> = this.store.select(
+  products$?: Observable<BasicProduct[]> = this.store.select(
     selectors.getProducts
   );
   customerRatings$?: Observable<{ [productId: string]: Rating }>;
