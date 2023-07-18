@@ -18,6 +18,11 @@ const getProductsEntityState = createSelector(
   (productState) => productState.products
 );
 
+export const getProductsCallState = createSelector(
+  productFeatureSelector,
+  (productState) => productState.productsCallState
+);
+
 /**
  * Selector for products data
  */

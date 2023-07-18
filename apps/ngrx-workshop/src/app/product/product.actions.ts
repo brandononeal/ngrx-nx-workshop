@@ -11,6 +11,8 @@ export const productsFetchedError = createAction(
   props<{ errorMessage: string }>()
 );
 
+export const productsFetch = createAction('[Product Effect] Fetching products');
+
 export const productFetchedSuccess = createAction(
   '[Product API] Product fetched success',
   props<{ product: Product }>()

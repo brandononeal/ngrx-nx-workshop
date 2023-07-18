@@ -18,6 +18,13 @@ export class ProductEffects {
         productListActions.productsOpened,
         cartDetailsActions.cartDetailsOpened
       ),
+      map(() => apiActions.productsFetch())
+    );
+  });
+
+  readonly fetchingProducts$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(apiActions.productsFetch),
       exhaustMap(() =>
         this.productService.getProducts().pipe(
           map((products) => apiActions.productsFetchedSuccess({ products })),

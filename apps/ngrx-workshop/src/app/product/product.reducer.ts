@@ -3,9 +3,11 @@ import { createReducer, on } from '@ngrx/store';
 import { EntityAdapter, EntityState, createEntityAdapter } from '@ngrx/entity';
 
 import * as apiActions from './product.actions';
+import { CallState, LoadingState } from '../shared/call-state';
 
 export interface ProductState {
   products: EntityState<Product>;
+  productsCallState: CallState;
 }
 
 export const productAdapter: EntityAdapter<Product> = createEntityAdapter({
@@ -14,16 +16,23 @@ export const productAdapter: EntityAdapter<Product> = createEntityAdapter({
 
 const initState: ProductState = {
   products: productAdapter.getInitialState(),
+  productsCallState: LoadingState.INIT,
 };
 
 export const productsReducer = createReducer(
   initState,
+  on(apiActions.productsFetch, (state) => ({
+    ...state,
+    productsCallState: LoadingState.LOADING,
+  })),
   on(apiActions.productsFetchedSuccess, (state, action) => ({
     ...state,
+    productsCallState: LoadingState.LOADED,
     products: productAdapter.upsertMany(action.products, state.products),
   })),
-  on(apiActions.productsFetchedError, (state) => ({
+  on(apiActions.productsFetchedError, (state, { errorMessage }) => ({
     ...state,
+    productsCallState: { errorMessage },
   })),
   on(apiActions.productFetchedSuccess, (state, { product }) => {
     return {
